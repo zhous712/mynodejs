@@ -1,0 +1,11 @@
+{
+  "name": "zhousmodule",
+  "version": "1.0.2",
+  "description": "A module for learning perpose.",
+  "main": "./index.js",
+  "scripts": {
+    "test": "none"
+  },
+  "author": "zhous",
+  "license": "ISC"
+}
