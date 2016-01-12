@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('express-session');
-var MongoStore = require('connect-mongodb');
+var MongoStore = require('connect-mongo')(session);
 var settings = require('./settings');
 
 var routes = require('./routes/index');
@@ -26,9 +26,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(methodOverride());
 app.use(session({
+    resave: false,
+    saveUninitialized: true,
     secret: settings.cookieSecret,
+    key: settings.db,//cookie name
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 },//30 days
     store: new MongoStore({
-        db: settings.db
+        db: settings.db,
+        url: 'mongodb://localhost'
+    }, function () {
+        console.log('connect mongodb success...');
     })
 }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -41,6 +48,9 @@ app.use(function (req, res, next) {
     res.locals.headers = req.headers;
     next();
 });
+
+var flash = require('connect-flash');
+app.use(flash());
 
 app.use('/', routes);
 app.use('/u/:user', routes);
