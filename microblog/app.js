@@ -39,7 +39,8 @@ app.use(session({
     })
 }));
 app.use(express.static(path.join(__dirname, 'public')));
-
+var flash = require('connect-flash');
+app.use(flash());
 var util = require('util');
 app.use(function (req, res, next) {
     res.locals.inspect = function (obj) {
@@ -48,9 +49,14 @@ app.use(function (req, res, next) {
     res.locals.headers = req.headers;
     next();
 });
-
-var flash = require('connect-flash');
-app.use(flash());
+app.use(function (req, res, next) {
+    res.locals.user = req.session.user;
+    var err = req.flash('error');
+    res.locals.error = err.length ? err : null;
+    var succ = req.flash('success');
+    res.locals.success = succ.length ? succ : null;
+    next();
+});
 
 app.use('/', routes);
 app.use('/u/:user', routes);
@@ -95,5 +101,6 @@ app.use(function (err, req, res, next) {
 module.exports = app;
 app.listen(3000);
 app.set('port', process.env.PORT || 3000);
+console.log(__filename);
 console.log("Express server listening on port %d in %s mode", app.get('port'),
     app.get('env'));
