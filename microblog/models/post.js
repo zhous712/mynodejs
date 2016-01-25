@@ -29,7 +29,7 @@ Post.prototype.save = function save(callback) {
 				mongodb.close();
 				return callback(err);
 			}
-			collection.ensureIndex('user');
+			collection.ensureIndex('name', {unique: true});
 			
 			collection.insert(post, {safe: true}, function(err, post) {
 				mongodb.close();
