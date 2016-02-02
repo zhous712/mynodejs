@@ -1,0 +1,5 @@
+::1 - - [02/Feb/2016:09:38:18 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0"
+::1 - - [02/Feb/2016:09:38:18 +0000] "GET /stylesheets/bootstrap.css HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0"
+::1 - - [02/Feb/2016:09:38:18 +0000] "GET /stylesheets/bootstrap-responsive.css HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0"
+::1 - - [02/Feb/2016:09:38:18 +0000] "GET /javascripts/jquery-2.1.4.min.js HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0"
+::1 - - [02/Feb/2016:09:38:18 +0000] "GET /javascripts/bootstrap.js HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0"

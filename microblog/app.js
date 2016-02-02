@@ -13,6 +13,14 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+var morgan = require('morgan')
+var fs = require('fs');
+var accessLogfile = fs.createWriteStream('access.log', { flags: 'a' });
+var errorLogfile = fs.createWriteStream('error.log', { flags: 'a' });
+app.use(morgan('combined', { stream: accessLogfile }))
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -87,6 +95,16 @@ if (app.get('env') === 'development') {
         });
     });
 }
+
+// production error handler
+// no stacktraces leaked to user
+if (app.get('env') === 'production') {
+    app.use(function (err, req, res, next) {
+        var meta = '[' + new Date() + '] ' + req.url + '\n';
+        errorLogfile.write(meta + err.stack + '\n');
+        next();
+    });
+};
 
 // production error handler
 // no stacktraces leaked to user
