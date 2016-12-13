@@ -54,6 +54,21 @@ router.get('/reg', function (req, res) {
 
 router.post('/reg', checkNotLogin);
 router.post('/reg', function (req, res) {
+    if (req.body['username']=='') {
+        req.flash('error', '用户名不能为空');
+        console.log('用户名不能为空');
+        return res.redirect('/reg');
+    }
+    if (req.body['password']=='') {
+        req.flash('error', '口令不能为空');
+        console.log('口令不能为空');
+        return res.redirect('/reg');
+    }
+   if (req.body['password-repeat']=='') {
+        req.flash('error', '重复输入口令不能为空');
+        console.log('重复输入口令不能为空');
+        return res.redirect('/reg');
+    }
     //检验用户两次输入的口令是否一致
     if (req.body['password-repeat'] != req.body['password']) {
         req.flash('error', '两次输入的口令不一致');
@@ -70,7 +85,7 @@ router.post('/reg', function (req, res) {
     //检查用户名是否已经存在
     User.get(newUser.name, function (err, user) {
         if (user)
-            err = 'Username already exists.';
+            err = '用户名已存在';
         if (err) {
             req.flash('error', err);
             return res.redirect('/reg');
